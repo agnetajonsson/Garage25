@@ -1,4 +1,5 @@
-﻿using Garage25.Models;
+﻿using Garage25.Data;
+using Garage25.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -176,17 +177,11 @@ namespace Garage25.Controllers
         // GET: ParkedVehicles/Create
         public IActionResult Create2()
         {
-            // Add some bogus data
-            var vehicle = new Bogus.DataSets.Vehicle();
-            var color = new Bogus.DataSets.Commerce(locale: "en");
-            TextInfo textInfo = new CultureInfo("en", false).TextInfo;
-            var vhcol = color.Color();
-
             var createPVViewModel = new CreatePVViewModel
             {
                 Id = 0,
-                RegNum = vehicle.Vin().Substring(0, 6),
-                Color = textInfo.ToTitleCase(vhcol),
+                RegNum = SeedData.GetBogusData(SeedData.BogusEnum.RegNum),
+                Color = SeedData.GetBogusData(SeedData.BogusEnum.Color),
                 UserName = ""
             };
 
